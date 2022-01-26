@@ -141,7 +141,11 @@ export default function Contact() {
               </a>
             </div>
           </div>
-          <form className="form rounded-lg bg-white p-4 flex flex-col">
+          <form
+            action="https://getform.io/f/9835a163-60dd-4009-ab1d-f8218e71b040"
+            className="form rounded-lg bg-white p-4 flex flex-col"
+            method="POST"
+          >
             <label htmlFor="name" className="text-sm text-gray-600 mx-4">
               {" "}
               Your Name
