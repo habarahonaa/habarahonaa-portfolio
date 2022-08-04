@@ -51,6 +51,13 @@ const userData = {
   },
   experience: [
     {
+      title: "Software Engineer II",
+      company: "Golabs Tech LLC",
+      year: "2022-",
+      companyLink: "https://golabstech.com/",
+      desc: "Write high-quality code and participate in design and code reviews to maintain development standards while working with industry leading technologies.",
+    },
+    {
       title: "IT & Networking Specialist",
       company: "NGO/Volunteer",
       year: "2019-22",
