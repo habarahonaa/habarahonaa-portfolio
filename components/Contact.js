@@ -1,8 +1,4 @@
 import React, { useCallback, useEffect } from "react";
-import {
-  GoogleReCaptchaProvider,
-  useGoogleReCaptcha,
-} from "react-google-recaptcha-v3";
 import userData from "@constants/data";
 
 const ReCaptchaForm = () => {
