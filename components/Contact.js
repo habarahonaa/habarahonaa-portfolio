@@ -1,5 +1,73 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 import userData from "@constants/data";
+
+const ReCaptchaForm = () => {
+  const handleLoaded = (_) => {
+    window.grecaptcha.ready((_) => {
+      window.grecaptcha
+        .execute("6LfsQlchAAAAAMe6kZjWF8u9wHAoW2OyzIESs3LI", {
+          action: "submit",
+        })
+        .then((token) => {
+          // Submit to getForm back
+          document.getElementById("captchaResponse").value = token;
+        });
+    });
+  };
+  useEffect(() => {
+    // Add reCAPTCHA on component load
+    const script = document.createElement("script");
+    script.src =
+      "https://www.google.com/recaptcha/api.js?render=6LfsQlchAAAAAMe6kZjWF8u9wHAoW2OyzIESs3LI";
+    script.addEventListener("load", handleLoaded);
+    document.body.appendChild(script);
+  }, []);
+  return (
+    <form
+      action="https://getform.io/f/9835a163-60dd-4009-ab1d-f8218e71b040"
+      className="form rounded-lg bg-white p-4 flex flex-col"
+      method="POST"
+    >
+      <label htmlFor="name" className="text-sm text-gray-600 mx-4">
+        {" "}
+        Your Name
+      </label>
+      <input
+        type="text"
+        className="font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500"
+        name="name"
+      />
+      <label htmlFor="email" className="text-sm text-gray-600 mx-4 mt-4">
+        Email
+      </label>
+      <input
+        type="text"
+        className="font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500"
+        name="email"
+      />
+      <label htmlFor="message" className="text-sm text-gray-600 mx-4 mt-4">
+        Message
+      </label>
+      <textarea
+        rows="4"
+        type="text"
+        className="font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500"
+        name="message"
+      ></textarea>
+      <input type="hidden" id="captchaResponse" name="g-recaptcha-response" />
+      <button
+        type="submit"
+        className="bg-blue-500 rounded-md w-1/2 mx-4 mt-8 py-2 text-gray-50 text-xs font-bold"
+      >
+        Send Message
+      </button>
+    </form>
+  );
+};
 
 export default function Contact() {
   return (
@@ -141,47 +209,7 @@ export default function Contact() {
               </a>
             </div>
           </div>
-          <form
-            action="https://getform.io/f/9835a163-60dd-4009-ab1d-f8218e71b040"
-            className="form rounded-lg bg-white p-4 flex flex-col"
-            method="POST"
-          >
-            <label htmlFor="name" className="text-sm text-gray-600 mx-4">
-              {" "}
-              Your Name
-            </label>
-            <input
-              type="text"
-              className="font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500"
-              name="name"
-            />
-            <label htmlFor="email" className="text-sm text-gray-600 mx-4 mt-4">
-              Email
-            </label>
-            <input
-              type="text"
-              className="font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500"
-              name="email"
-            />
-            <label
-              htmlFor="message"
-              className="text-sm text-gray-600 mx-4 mt-4"
-            >
-              Message
-            </label>
-            <textarea
-              rows="4"
-              type="text"
-              className="font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500"
-              name="message"
-            ></textarea>
-            <button
-              type="submit"
-              className="bg-blue-500 rounded-md w-1/2 mx-4 mt-8 py-2 text-gray-50 text-xs font-bold"
-            >
-              Send Message
-            </button>
-          </form>
+          <ReCaptchaForm />
         </div>
       </div>
     </section>
